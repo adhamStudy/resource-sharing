@@ -1,7 +1,7 @@
 <template>
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-blue-100">
         <!-- Navbar -->
-        <header class="bg-white shadow-sm">
+        <header class="bg-teal-500 shadow-sm">
             <div
                 class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
             >

@@ -12,7 +12,7 @@
             >
                 <!-- Static Image -->
                 <img
-                    src="../../../public/images/resource.png"
+                    src="/public/images/resource.png"
                     alt="Resource"
                     class="w-12 h-12 object-cover rounded-md mb-4"
                 />
