@@ -4,6 +4,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/',[HomeController::class,'index']);
-Route::get('/resource',[HomeController::class,'resource']);
+Route::get('/',[HomeController::class,'index'])->name('/');
+Route::get('/resource',[HomeController::class,'resource'])->name('resource');
+Route::get('/create',[HomeController::class,'create'])->name('create');
+Route::post('/store',[HomeController::class,'store'])->name('store');
 
