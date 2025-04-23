@@ -1,4 +1,5 @@
 <template>
+    <!-- <pre>{{ user }}</pre> -->
     <div class="min-h-screen bg-blue-50">
         <!-- Navbar -->
         <header
@@ -7,63 +8,101 @@
             <div
                 class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
             >
-                <!-- Logo / App Name -->
-                <h1 class="text-xl font-bold text-gray-800">MyApp</h1>
+                <!-- Left: Logo & Navigation -->
+                <div class="flex items-center gap-6">
+                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">
+                        MyApp
+                    </h1>
+                    <nav class="hidden md:flex gap-6">
+                        <Link
+                            href="/"
+                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href="/resource"
+                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                        >
+                            Resources
+                        </Link>
+                        <span v-if="user" class="text-gray-500">{{
+                            user.name
+                        }}</span>
+                    </nav>
+                </div>
 
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-6">
-                    <Link
-                        href="/"
-                        class="text-gray-700 hover:text-blue-600 font-medium"
-                        >Home</Link
-                    >
-                    <Link
-                        href="/resource"
-                        class="text-gray-700 hover:text-blue-600 font-medium"
-                        >Resources</Link
-                    >
-                </nav>
+                <!-- Right: Login/Logout and Hamburger -->
+                <div class="flex items-center gap-4">
+                    <div v-if="user">
+                        <Link
+                            href="/logout"
+                            method="post"
+                            as="button"
+                            class="text-gray-700 dark:text-gray-300 hover:text-red-500 font-medium"
+                        >
+                            Logout
+                        </Link>
+                    </div>
+                    <div v-else>
+                        <Link
+                            href="/login"
+                            as="button"
+                            class="text-gray-700 dark:text-gray-300 hover:text-blue-500 font-medium"
+                        >
+                            Sign-in
+                        </Link>
+                    </div>
 
-                <!-- Mobile Hamburger -->
-                <button
-                    class="md:hidden text-gray-700 focus:outline-none"
-                    @click="isOpen = !isOpen"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                    <!-- Mobile Hamburger -->
+                    <button
+                        @click="isOpen = !isOpen"
+                        class="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none"
                     >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            :d="
-                                isOpen
-                                    ? 'M6 18L18 6M6 6l12 12'
-                                    : 'M4 6h16M4 12h16M4 18h16'
-                            "
-                        />
-                    </svg>
-                </button>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                :d="
+                                    isOpen
+                                        ? 'M6 18L18 6M6 6l12 12'
+                                        : 'M4 6h16M4 12h16M4 18h16'
+                                "
+                            />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <!-- Mobile Nav Links -->
-            <div v-if="isOpen" class="md:hidden px-4 pb-4">
+            <!-- Mobile Nav -->
+            <div v-if="isOpen" class="md:hidden px-4 pb-4 space-y-2">
                 <Link
                     href="/"
-                    class="block text-gray-700 py-2 hover:text-blue-600 font-medium"
+                    class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
                     >Home</Link
                 >
                 <Link
                     href="/resource"
-                    class="block text-gray-700 py-2 hover:text-blue-600 font-medium"
+                    class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
                     >Resources</Link
                 >
             </div>
         </header>
+
+        <!-- Flash Message -->
+        <div
+            v-if="$page.props.flash.success"
+            class="bg-green-100 text-black text-sm border border-green-200 rounded-lg p-2 m-5 dark:bg-green-900 dark:text-white dark:border-green-700"
+        >
+            {{ $page.props.flash.success }}
+        </div>
 
         <!-- Page Content -->
         <main class="max-w-7xl mx-auto px-4 py-8">
@@ -73,8 +112,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { Link } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const isOpen = ref(false);
+const user = computed(() => usePage().props.user);
 </script>

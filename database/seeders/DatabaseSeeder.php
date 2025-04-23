@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         // delete all from Resource
         Resource::truncate();
-
+        User::truncate();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

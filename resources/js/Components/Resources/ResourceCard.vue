@@ -16,7 +16,7 @@
             v-else
             :src="resource.image"
             alt="Resource"
-            class="w-12 h-12 object-cover rounded-md mb-4"
+            class="w-20 h-20 object-cover rounded-md mb-4"
         />
 
         <div class="mb-4">

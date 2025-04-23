@@ -66,10 +66,11 @@ public function create(){
 
 public function store(Request $request)
 {
+    // dd(Auth::id());
     $validated = $request->validate([
         'title'       => 'string|required',
         'description' => 'string|required',
-        'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif',
     ]);
 
     if ($request->hasFile('image')) {
@@ -77,7 +78,7 @@ public function store(Request $request)
         $path = $request->file('image')->storeAs('images', $imageName, 'public');
         $validated['image'] = 'storage/' . $path;
     }
-
+    $validated['user_id'] = Auth::id();
     Resource::create($validated);
 
     return redirect()->route('resource')->with('success', 'Listing was Created');
