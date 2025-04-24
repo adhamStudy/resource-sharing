@@ -44,7 +44,12 @@
                             Logout
                         </Link>
                     </div>
-                    <div v-else>
+                    <div v-else class="flex items-center gap-4">
+                        <Link
+                            href="/user-account/create"
+                            class="text-gray-700 dark:text-gray-300 hover:text-blue-500 font-medium"
+                            >Register</Link
+                        >
                         <Link
                             href="/login"
                             as="button"
