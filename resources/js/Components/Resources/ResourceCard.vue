@@ -20,9 +20,38 @@
         />
 
         <div class="mb-4">
-            <h2 class="text-xl font-semibold text-gray-900 mb-1">
-                {{ resource.title }}
-            </h2>
+            <div class="flex justify-between">
+                <h2 class="text-xl font-semibold text-gray-900 mb-1">
+                    {{ resource.title }}
+                </h2>
+                <Link :href="`/show/${resource.id}`">
+                    <div
+                        class="rounded-sm px-2 py-1 text-white bg-green-700 hover:bg-green-600"
+                    >
+                        Reserve
+                        <span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 inline-block ml-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width=""
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M14.752 11.168l-4.197 2.1a.75.75 0 01-1.09-.659V9.39a.75.75 0 011.09-.659l4.197 2.1a.75.75 0 010 1.336z"
+                                />
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                        </span></div
+                ></Link>
+            </div>
             <p class="text-gray-600 text-sm">
                 {{ resource.description }}
             </p>
@@ -45,6 +74,7 @@
 </template>
 
 <script setup>
+import { Link } from "@inertiajs/vue3";
 const props = defineProps({
     resources: {
         type: Array,

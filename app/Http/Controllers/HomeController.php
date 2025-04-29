@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
-;
 use Illuminate\Http\Request;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 class HomeController extends Controller
 {
    public function index(){
@@ -20,38 +18,7 @@ public function resource()
 {
 
 
-    // $resources = [
-    //     [
-    //         'id' => 1,
-    //         'user_id' => 1,
-    //         'title' => 'Lawn Mower',
-    //         'description' => 'Electric lawn mower in good condition.',
-    //         'image' => 'lawnmower.jpg',
-    //         'is_available' => true,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ],
-    //     [
-    //         'id' => 2,
-    //         'user_id' => 2,
-    //         'title' => 'Projector',
-    //         'description' => 'HD projector, great for movie nights.',
-    //         'image' => 'projector.jpg',
-    //         'is_available' => false,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ],
-    //     [
-    //         'id' => 3,
-    //         'user_id' => 3,
-    //         'title' => 'Ladder',
-    //         'description' => '10-foot aluminum ladder.',
-    //         'image' => 'ladder.jpg',
-    //         'is_available' => true,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ],
-    // ];
+  
 
     $resources=Resource::all();
     // dd($resources);
@@ -81,9 +48,17 @@ public function store(Request $request)
     $validated['user_id'] = Auth::id();
     Resource::create($validated);
 
-    return redirect()->route('resource')->with('success', 'Listing was Created');
+    return redirect()->route('resource')->with('success', 'Resource was Created');
 }
 
+public function show(Resource $resource)
+{
+    $user=User::where('id',$resource->user_id)->first();
+    // dd($resource); // Check if the model is resolved correctly
+    return inertia('Show', [
+        'resource' => $resource,
+        'user' => $user,
+    ]);
 
-
+}
 }

@@ -50,4 +50,10 @@ class User extends Authenticatable
 {
     return $this->hasMany(Resource::class);
 }
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+    
+
 }
