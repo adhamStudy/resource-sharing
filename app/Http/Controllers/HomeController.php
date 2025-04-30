@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Reservation;
 class HomeController extends Controller
 {
    public function index(){
@@ -61,4 +62,30 @@ public function show(Resource $resource)
     ]);
 
 }
+
+public function reserve(Request $request, Resource $resource)
+    {
+        // Check if resource is available
+        if (!$resource->is_available) {
+            return response()->json([
+                'message' => 'This resource is not available for reservation.'
+            ], 422);
+        }
+        
+        // Create a new reservation
+        $reservation = new Reservation();
+        $reservation->user_id = Auth::id();
+        $reservation->resource_id = $resource->id;
+        $reservation->start_date = now();
+        $reservation->end_date = now()->addDays(7); // Example: reserve for 7 days
+        // You can add more fields like reservation end date, status, etc.
+        $reservation->save();
+        
+        // Update resource availability
+        $resource->is_available = false;
+        $resource->save();
+        
+        return redirect()->route('resource')->with('success', 'Resource was reserved');
+
+    }
 }

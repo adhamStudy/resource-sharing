@@ -26,6 +26,12 @@
                         >
                             Resources
                         </Link>
+                        <Link
+                            :href="route('posts.index')"
+                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                        >
+                            Posts
+                        </Link>
                         <span v-if="user" class="text-gray-500">{{
                             user.name
                         }}</span>
