@@ -28,7 +28,7 @@
                     <div
                         class="rounded-sm px-2 py-1 text-white bg-green-700 hover:bg-green-600"
                     >
-                        Reserve
+                        show details
                         <span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

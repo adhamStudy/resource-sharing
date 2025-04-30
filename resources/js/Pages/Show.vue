@@ -3,7 +3,7 @@
         <div class="max-w-3xl mx-auto">
             <!-- Back button -->
             <button
-                @click="$inertia.visit('/')"
+                @click="$inertia.visit(route('home'))"
                 class="flex items-center text-indigo-600 hover:text-indigo-800 mb-6 transition-colors"
             >
                 <svg
@@ -30,7 +30,7 @@
                     <img
                         :src="'/' + resource.image"
                         :alt="resource.title"
-                        class="w-full h-full"
+                        class="w-full h-full object-cover"
                         v-if="resource.image"
                     />
                     <div
@@ -211,6 +211,7 @@
 <script setup>
 import { defineProps } from "vue";
 import { router } from "@inertiajs/vue3";
+import { route } from "ziggy-js";
 
 const props = defineProps({
     resource: Object,
