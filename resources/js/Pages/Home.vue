@@ -30,39 +30,49 @@
 
         <!-- Features Section -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div
+            <Link
+                :href="route('resource')"
                 class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
             >
-                <img
-                    src="/public/images/sharing.png"
-                    alt="Sharing"
-                    class="h-32 mx-auto mb-4"
-                />
-                <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                    Swap Resources
-                </h2>
-                <p class="text-gray-600">
-                    Lend or borrow useful items from your neighbors easily and
-                    safely.
-                </p>
-            </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                >
+                    <img
+                        src="/public/images/sharing.png"
+                        alt="Sharing"
+                        class="h-32 mx-auto mb-4"
+                    />
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        Swap Resources
+                    </h2>
+                    <p class="text-gray-600">
+                        Lend or borrow useful items from your neighbors easily
+                        and safely.
+                    </p>
+                </div>
+            </Link>
 
-            <div
+            <Link
+                :href="route('posts.index')"
                 class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
             >
-                <img
-                    src="/public/images/posts.png"
-                    alt="Posts"
-                    class="h-32 mx-auto mb-4"
-                />
-                <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                    Post & Discuss
-                </h2>
-                <p class="text-gray-600">
-                    Create posts to share thoughts, announcements, or
-                    neighborhood events.
-                </p>
-            </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                >
+                    <img
+                        src="/public/images/posts.png"
+                        alt="Posts"
+                        class="h-32 mx-auto mb-4"
+                    />
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        Post & Discuss
+                    </h2>
+                    <p class="text-gray-600">
+                        Create posts to share thoughts, announcements, or
+                        neighborhood events.
+                    </p>
+                </div>
+            </Link>
 
             <div
                 class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
@@ -85,4 +95,5 @@
 </template>
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import { route } from "ziggy-js";
 </script>

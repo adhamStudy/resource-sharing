@@ -15,19 +15,65 @@ class HomeController extends Controller
    }
 
 
-public function resource()
-{
-
-
-  
-
-    $resources=Resource::all();
-    // dd($resources);
-
-    return inertia('Resources', [
-        'resources' => $resources
-    ]);
-}
+   public function resource(Request $request)
+   {
+       $query = Resource::query()->with('reservations.user');
+       
+       // Search by name
+       if ($request->has('search')) {
+           $query->where('title', 'like', '%' . $request->search . '%');
+       }
+       
+       // Filter by availability
+       if ($request->has('availability')) {
+           if ($request->availability === 'available') {
+               $query->where('is_available', true);
+           } else if ($request->availability === 'unavailable') {
+               $query->where('is_available', false);
+           }
+       }
+       
+       // Sort options
+       $sortBy = $request->sort_by ?? 'created_at';
+       $sortDirection = $request->sort_direction ?? 'desc';
+       $query->orderBy($sortBy, $sortDirection);
+       
+       $resources = $query->get();
+       
+       // Calculate days since reservation for unavailable resources
+       // Add reservation information for unavailable resources
+        foreach ($resources as $resource) {
+            if (!$resource->is_available && $resource->reservations->count() > 0) {
+                $latestReservation = $resource->reservations->sortByDesc('created_at')->first();
+                
+                // Fix: Format the time difference properly
+                $daysSinceReservation = now()->diffInDays($latestReservation->created_at);
+                
+                // If less than 1 day, show in hours
+                if ($daysSinceReservation < 1) {
+                    $hoursSinceReservation = now()->diffInHours($latestReservation->created_at);
+                    $resource->time_since_reservation = $hoursSinceReservation;
+                    $resource->time_unit = 'hour';
+                } else {
+                    $resource->time_since_reservation = $daysSinceReservation;
+                    $resource->time_unit = 'day';
+                }
+                
+                $resource->reserved_by = $latestReservation->user;
+            }
+        }
+        // dd($resources);
+       
+       return inertia('Resources', [
+           'resources' => $resources,
+           'filters' => [
+               'search' => $request->search ?? '',
+               'availability' => $request->availability ?? 'all',
+               'sort_by' => $sortBy,
+               'sort_direction' => $sortDirection
+           ]
+       ]);
+   }
 public function create(){
     return inertia('Create');
 }

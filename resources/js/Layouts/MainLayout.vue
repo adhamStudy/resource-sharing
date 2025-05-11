@@ -1,9 +1,9 @@
 <template>
-    <!-- <pre>{{ user }}</pre> -->
-    <div class="min-h-screen bg-blue-50">
+    <div class="min-h-screen bg-blue-50" @click="handleOutsideClick">
         <!-- Navbar -->
         <header
             class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 w-full"
+            ref="header"
         >
             <div
                 class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
@@ -11,35 +11,74 @@
                 <!-- Left: Logo & Navigation -->
                 <div class="flex items-center gap-6">
                     <h1 class="text-xl font-bold text-gray-800 dark:text-white">
-                        MyApp
+                        <Link :href="route('home')"> Nighborhood </Link>
                     </h1>
                     <nav class="hidden md:flex gap-6">
                         <Link
                             href="/"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                            :class="[
+                                'hover:text-blue-600 font-medium transition-all',
+                                $page.url === '/'
+                                    ? 'font-bold text-blue-600 text-lg'
+                                    : 'text-gray-700 dark:text-gray-300 text-base',
+                            ]"
                         >
                             Home
                         </Link>
                         <Link
                             href="/resource"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                            :class="[
+                                'hover:text-blue-600 font-medium transition-all',
+                                $page.url.startsWith('/resource')
+                                    ? 'font-bold text-blue-600 text-lg'
+                                    : 'text-gray-700 dark:text-gray-300 text-base',
+                            ]"
                         >
                             Resources
                         </Link>
                         <Link
                             :href="route('posts.index')"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
+                            :class="[
+                                'hover:text-blue-600 font-medium transition-all',
+                                $page.url.startsWith('/posts')
+                                    ? 'font-bold text-blue-600 text-lg'
+                                    : 'text-gray-700 dark:text-gray-300 text-base',
+                            ]"
                         >
                             Posts
                         </Link>
-                        <span v-if="user" class="text-gray-500">{{
-                            user.name
-                        }}</span>
+                        <Link
+                            v-if="user"
+                            :href="route('reservations.index')"
+                            :class="[
+                                'hover:text-blue-600 font-medium transition-all',
+                                $page.url.startsWith('/reservations')
+                                    ? 'font-bold text-blue-600 text-lg'
+                                    : 'text-gray-700 dark:text-gray-300 text-base',
+                            ]"
+                        >
+                            My Reservations
+                        </Link>
+
+                        <span v-if="user" class="text-gray-500">
+                            {{ user.name }}
+                        </span>
                     </nav>
                 </div>
 
                 <!-- Right: Login/Logout and Hamburger -->
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-10">
+                    <div v-if="user">
+                        <Link :href="route('profile')">
+                            <div class="flex flex-col gap-4">
+                                <img
+                                    src="/public/images/profile.png"
+                                    alt="User Profile"
+                                    class="h-8 w-8 rounded-full border border-gray-300"
+                                />
+                            </div>
+                        </Link>
+                    </div>
                     <div v-if="user">
                         <Link
                             href="/logout"
@@ -54,8 +93,9 @@
                         <Link
                             href="/user-account/create"
                             class="text-gray-700 dark:text-gray-300 hover:text-blue-500 font-medium"
-                            >Register</Link
                         >
+                            Register
+                        </Link>
                         <Link
                             href="/login"
                             as="button"
@@ -67,7 +107,7 @@
 
                     <!-- Mobile Hamburger -->
                     <button
-                        @click="isOpen = !isOpen"
+                        @click.stop="toggleMobileMenu"
                         class="md:hidden text-gray-700 dark:text-gray-300 focus:outline-none"
                     >
                         <svg
@@ -93,17 +133,60 @@
             </div>
 
             <!-- Mobile Nav -->
-            <div v-if="isOpen" class="md:hidden px-4 pb-4 space-y-2">
+            <div
+                v-if="isOpen"
+                class="md:hidden px-4 pb-4 space-y-2"
+                @click.stop
+            >
                 <Link
                     href="/"
-                    class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
-                    >Home</Link
+                    :class="[
+                        'block hover:text-blue-600 font-medium transition-all',
+                        $page.url === '/'
+                            ? 'font-bold text-blue-600 text-lg'
+                            : 'text-gray-700 dark:text-gray-300 text-base',
+                    ]"
+                    @click="closeMobileMenu"
                 >
+                    Home
+                </Link>
                 <Link
                     href="/resource"
-                    class="block text-gray-700 dark:text-gray-300 hover:text-blue-600 font-medium"
-                    >Resources</Link
+                    :class="[
+                        'block hover:text-blue-600 font-medium transition-all',
+                        $page.url.startsWith('/resource')
+                            ? 'font-bold text-blue-600 text-lg'
+                            : 'text-gray-700 dark:text-gray-300 text-base',
+                    ]"
+                    @click="closeMobileMenu"
                 >
+                    Resources
+                </Link>
+                <Link
+                    :href="route('posts.index')"
+                    :class="[
+                        'block hover:text-blue-600 font-medium transition-all',
+                        $page.url.startsWith('/posts')
+                            ? 'font-bold text-blue-600 text-lg'
+                            : 'text-gray-700 dark:text-gray-300 text-base',
+                    ]"
+                    @click="closeMobileMenu"
+                >
+                    Posts
+                </Link>
+                <Link
+                    v-if="user"
+                    :href="route('reservations.index')"
+                    :class="[
+                        'block hover:text-blue-600 font-medium transition-all',
+                        $page.url.startsWith('/reservations')
+                            ? 'font-bold text-blue-600 text-lg'
+                            : 'text-gray-700 dark:text-gray-300 text-base',
+                    ]"
+                    @click="closeMobileMenu"
+                >
+                    My Reservations
+                </Link>
             </div>
         </header>
 
@@ -123,9 +206,29 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 
 const isOpen = ref(false);
 const user = computed(() => usePage().props.user);
+const header = ref(null);
+
+const toggleMobileMenu = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const closeMobileMenu = () => {
+    isOpen.value = false;
+};
+
+const handleOutsideClick = (event) => {
+    if (isOpen.value && header.value && !header.value.contains(event.target)) {
+        isOpen.value = false;
+    }
+};
+
+import { router } from "@inertiajs/vue3";
+router.on("navigate", () => {
+    isOpen.value = false;
+});
 </script>

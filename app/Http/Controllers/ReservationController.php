@@ -6,7 +6,14 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ReservationController extends Controller
-{
+{   
+    public function index(){
+        $reservations = Reservation::where('user_id', Auth::id())->get();
+        return inertia('MyReservations', [
+            'reservations' => $reservations,
+        ]);
+    }
+
     public function store(Request $request){
 
         $validated= $request->validate([

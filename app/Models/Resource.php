@@ -25,4 +25,8 @@ class Resource extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+    public function currentReservation()
+    {
+        return $this->reservations()->latest()->first();
+    }
 }
