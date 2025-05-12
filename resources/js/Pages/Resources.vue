@@ -1,20 +1,28 @@
 <template>
-    <div class="max-w-7xl mx-auto p-6" dir="rtl">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">موارد الحي</h1>
+    <div class="max-w-7xl mx-auto p-3 sm:p-6" dir="rtl">
+        <div
+            class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6"
+        >
+            <h1
+                class="text-2xl sm:text-3xl font-bold text-gray-800 mb-3 sm:mb-0"
+            >
+                موارد الحي
+            </h1>
 
             <Link
                 :href="route('create')"
-                class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition text-sm sm:text-base w-full sm:w-auto text-center"
             >
                 إنشاء مورد
             </Link>
         </div>
 
         <!-- Search and Filter Controls -->
-        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div class="bg-white rounded-lg shadow-sm p-3 sm:p-4 mb-4 sm:mb-6">
             <form @submit.prevent="search">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+                >
                     <!-- Search -->
                     <div>
                         <label
@@ -88,17 +96,19 @@
                     </div>
                 </div>
 
-                <div class="mt-4 flex justify-end space-x-3 space-x-reverse">
+                <div
+                    class="mt-4 flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-3 sm:space-x-reverse"
+                >
                     <button
                         type="button"
                         @click="resetFilters"
-                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                        class="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-700 bg-white hover:bg-gray-50 order-2 sm:order-1"
                     >
                         إعادة تعيين
                     </button>
                     <button
                         type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm order-1 sm:order-2"
                     >
                         تطبيق الفلاتر
                     </button>
@@ -107,12 +117,14 @@
         </div>
 
         <!-- Resources Count -->
-        <div class="mb-4 text-gray-600">عرض {{ resources.length }} مورد</div>
+        <div class="mb-3 sm:mb-4 text-gray-600 text-sm">
+            عرض {{ resources.length }} مورد
+        </div>
 
         <!-- Resources Grid -->
         <div
             v-if="resources.length > 0"
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
             <div
                 v-for="resource in resources"
@@ -121,7 +133,7 @@
             >
                 <Link :href="route('show', resource.id)">
                     <!-- Resource Image -->
-                    <div class="h-48 bg-gray-200 relative">
+                    <div class="h-40 sm:h-48 bg-gray-200 relative">
                         <img
                             v-if="resource.image"
                             :src="'/' + resource.image"
@@ -149,11 +161,15 @@
                     </div>
 
                     <!-- Resource Details -->
-                    <div class="p-4">
-                        <h2 class="text-lg font-semibold text-gray-900 mb-1">
+                    <div class="p-3 sm:p-4">
+                        <h2
+                            class="text-base sm:text-lg font-semibold text-gray-900 mb-1"
+                        >
                             {{ resource.title }}
                         </h2>
-                        <p class="text-sm text-gray-600 line-clamp-2 mb-3">
+                        <p
+                            class="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-2 sm:mb-3"
+                        >
                             {{ resource.description }}
                         </p>
 
@@ -162,12 +178,12 @@
                             v-if="
                                 !resource.is_available && resource.reserved_by
                             "
-                            class="mt-3 text-sm"
+                            class="mt-2 sm:mt-3 text-xs sm:text-sm"
                         >
                             <div class="flex items-center text-gray-600">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-1"
+                                    class="h-3 w-3 sm:h-4 sm:w-4 ml-1"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -184,7 +200,7 @@
                             <div class="flex items-center text-gray-600 mt-1">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-1"
+                                    class="h-3 w-3 sm:h-4 sm:w-4 ml-1"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -206,10 +222,10 @@
         </div>
 
         <!-- Empty State -->
-        <div v-else class="text-center py-12">
+        <div v-else class="text-center py-8 sm:py-12">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-12 w-12 mx-auto text-gray-400"
+                class="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -221,13 +237,17 @@
                     d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
             </svg>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">
+            <h3
+                class="mt-3 sm:mt-4 text-base sm:text-lg font-medium text-gray-900"
+            >
                 لا توجد موارد
             </h3>
-            <p class="mt-1 text-gray-500">جرب تعديل معايير البحث أو الفلاتر.</p>
+            <p class="mt-1 text-sm text-gray-500">
+                جرب تعديل معايير البحث أو الفلاتر.
+            </p>
             <button
                 @click="resetFilters"
-                class="mt-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                class="mt-3 sm:mt-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
             >
                 مسح الفلاتر
             </button>

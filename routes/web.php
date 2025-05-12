@@ -13,7 +13,7 @@ Route::get('/resource',[HomeController::class,'resource'])->name('resource');
 Route::get('/create',[HomeController::class,'create'])->name('create')->middleware(['auth']);
 Route::post('/store',[HomeController::class,'store'])->name('store');
 
-Route::get('/show/{resource}',[HomeController::class,'show'])->name('show');
+Route::get('/show/{resource}',[HomeController::class,'show'])->name('show')->middleware(['auth']);
 Route::post('/resources/{resource}/reserve', [ReservationController::class, 'reserve'])
     ->name('resources.reserve')
     ->middleware(['auth']);
