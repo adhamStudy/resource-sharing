@@ -11,6 +11,7 @@ class HomeController extends Controller
 {
    public function index(){
     // dd(Auth::user());
+    
     return inertia('Home');
    }
 
@@ -100,14 +101,29 @@ public function store(Request $request)
 
 public function show(Resource $resource)
 {
-    $user=User::where('id',$resource->user_id)->first();
-    // dd($resource); // Check if the model is resolved correctly
+    // Retrieve the user who created the resource
+    $owner = User::find($resource->user_id);
+    $user= Auth::user();
     return inertia('Show', [
         'resource' => $resource,
-        'user' => $user,
+        'owner' => $owner,
     ]);
-
 }
+// method to delete resource
+ 
+public function destroy(Resource $resource)
+{
+    // Check if the resource belongs to the authenticated user
+    if ($resource->user_id !== Auth::id()) {
+        return redirect()->route('resource')->with('error', 'You do not have permission to delete this resource.');
+    }
+
+    // Delete the resource
+    $resource->delete();
+
+    return redirect()->route('resource')->with('success', 'Resource was deleted');
+}
+
 
 public function reserve(Request $request, Resource $resource)
     {

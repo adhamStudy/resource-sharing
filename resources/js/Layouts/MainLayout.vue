@@ -11,7 +11,7 @@
                 <!-- Left: Logo & Navigation -->
                 <div class="flex items-center gap-6">
                     <h1 class="text-xl font-bold text-gray-800 dark:text-white">
-                        <Link :href="route('home')"> Nighborhood </Link>
+                        <Link :href="route('home')"> منصة خيرنا بيننا </Link>
                     </h1>
                     <nav class="hidden md:flex gap-6">
                         <Link
@@ -23,7 +23,7 @@
                                     : 'text-gray-700 dark:text-gray-300 text-base',
                             ]"
                         >
-                            Home
+                            الرئيسية
                         </Link>
                         <Link
                             href="/resource"
@@ -34,7 +34,7 @@
                                     : 'text-gray-700 dark:text-gray-300 text-base',
                             ]"
                         >
-                            Resources
+                            الموارد
                         </Link>
                         <Link
                             :href="route('posts.index')"
@@ -45,7 +45,7 @@
                                     : 'text-gray-700 dark:text-gray-300 text-base',
                             ]"
                         >
-                            Posts
+                            المنتدى
                         </Link>
                         <Link
                             v-if="user"
@@ -57,7 +57,7 @@
                                     : 'text-gray-700 dark:text-gray-300 text-base',
                             ]"
                         >
-                            My Reservations
+                            حجوزاتي
                         </Link>
 
                         <span v-if="user" class="text-gray-500">
@@ -73,7 +73,7 @@
                             <div class="flex flex-col gap-4">
                                 <img
                                     src="/public/images/profile.png"
-                                    alt="User Profile"
+                                    alt="الملف الشخصي"
                                     class="h-8 w-8 rounded-full border border-gray-300"
                                 />
                             </div>
@@ -86,7 +86,7 @@
                             as="button"
                             class="text-gray-700 dark:text-gray-300 hover:text-red-500 font-medium"
                         >
-                            Logout
+                            تسجيل الخروج
                         </Link>
                     </div>
                     <div v-else class="flex items-center gap-4">
@@ -94,14 +94,14 @@
                             href="/user-account/create"
                             class="text-gray-700 dark:text-gray-300 hover:text-blue-500 font-medium"
                         >
-                            Register
+                            تسجيل جديد
                         </Link>
                         <Link
                             href="/login"
                             as="button"
                             class="text-gray-700 dark:text-gray-300 hover:text-blue-500 font-medium"
                         >
-                            Sign-in
+                            تسجيل الدخول
                         </Link>
                     </div>
 
@@ -148,7 +148,7 @@
                     ]"
                     @click="closeMobileMenu"
                 >
-                    Home
+                    الرئيسية
                 </Link>
                 <Link
                     href="/resource"
@@ -160,7 +160,7 @@
                     ]"
                     @click="closeMobileMenu"
                 >
-                    Resources
+                    الموارد
                 </Link>
                 <Link
                     :href="route('posts.index')"
@@ -172,7 +172,7 @@
                     ]"
                     @click="closeMobileMenu"
                 >
-                    Posts
+                    المنتدى
                 </Link>
                 <Link
                     v-if="user"
@@ -185,7 +185,7 @@
                     ]"
                     @click="closeMobileMenu"
                 >
-                    My Reservations
+                    حجوزاتي
                 </Link>
             </div>
         </header>

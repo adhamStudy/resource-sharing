@@ -6,30 +6,30 @@
         >
             <img
                 src="/public/images/hero.jpg"
-                alt="Neighborhood"
+                alt="الحي"
                 class="absolute inset-0 w-full h-full object-cover"
             />
             <div
                 class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white px-4"
             >
                 <h1 class="text-5xl font-bold mb-4">
-                    Welcome to NeighborConnect
+                    مرحبًا بك في NeighborConnect
                 </h1>
                 <p class="text-xl max-w-2xl">
-                    A community-driven platform to swap resources, share posts,
-                    and raise concerns—all in one place.
+                    منصة مجتمعية لتبادل الموارد، مشاركة المنشورات، ورفع الشكاوى
+                    — كل ذلك في مكان واحد.
                 </p>
                 <Link
-                    href="/register"
+                    href="/login"
                     class="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full"
                 >
-                    Join the Community
+                    انضم إلى المجتمع
                 </Link>
             </div>
         </div>
 
         <!-- Features Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-right">
             <Link
                 :href="route('resource')"
                 class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
@@ -39,15 +39,14 @@
                 >
                     <img
                         src="/public/images/sharing.png"
-                        alt="Sharing"
+                        alt="تبادل"
                         class="h-32 mx-auto mb-4"
                     />
                     <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                        Swap Resources
+                        تبادل الموارد
                     </h2>
                     <p class="text-gray-600">
-                        Lend or borrow useful items from your neighbors easily
-                        and safely.
+                        أعر أو استعر العناصر المفيدة من جيرانك بسهولة وأمان.
                     </p>
                 </div>
             </Link>
@@ -61,38 +60,43 @@
                 >
                     <img
                         src="/public/images/posts.png"
-                        alt="Posts"
+                        alt="منشورات"
                         class="h-32 mx-auto mb-4"
                     />
                     <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                        Post & Discuss
+                        مشاركة ومناقشة
                     </h2>
                     <p class="text-gray-600">
-                        Create posts to share thoughts, announcements, or
-                        neighborhood events.
+                        أنشئ منشورات لمشاركة الأفكار أو الإعلانات أو أحداث الحي.
                     </p>
                 </div>
             </Link>
 
-            <div
+            <Link
+                :href="route('posts.create')"
                 class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
             >
-                <img
-                    src="/public/images/complaint.png"
-                    alt="Complaints"
-                    class="h-32 mx-auto mb-4"
-                />
-                <h2 class="text-xl font-semibold text-gray-700 mb-2">
-                    Raise Concerns
-                </h2>
-                <p class="text-gray-600">
-                    Submit complaints or suggestions to help improve community
-                    life.
-                </p>
-            </div>
+                <div
+                    class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
+                >
+                    <img
+                        src="/public/images/complaint.png"
+                        alt="شكاوى"
+                        class="h-32 mx-auto mb-4"
+                    />
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">
+                        رفع الشكاوى
+                    </h2>
+                    <p class="text-gray-600">
+                        قدّم الشكاوى أو الاقتراحات للمساهمة في تحسين الحياة
+                        المجتمعية.
+                    </p>
+                </div>
+            </Link>
         </div>
     </div>
 </template>
+
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import { route } from "ziggy-js";

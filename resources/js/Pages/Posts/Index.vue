@@ -7,11 +7,11 @@
                         <h1
                             class="text-xl sm:text-2xl font-semibold text-gray-900"
                         >
-                            Posts
+                            المنشورات
                         </h1>
                     </div>
 
-                    <!-- Flash Message -->
+                    <!-- رسالة الفلاش -->
                     <div
                         v-if="$page.props.flash.success"
                         class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"
@@ -19,13 +19,13 @@
                         {{ $page.props.flash.success }}
                     </div>
 
-                    <!-- Twitter-style Posts -->
+                    <!-- المنشورات -->
                     <div class="space-y-3 sm:space-y-4">
                         <div
                             v-if="posts.data.length === 0"
                             class="text-gray-500 text-center py-6"
                         >
-                            No posts yet. Be the first to create one!
+                            لا توجد منشورات بعد. كن أول من ينشر!
                         </div>
 
                         <div
@@ -38,35 +38,39 @@
                                 class="block"
                             >
                                 <div class="flex space-x-2 sm:space-x-3">
-                                    <!-- Profile Picture -->
+                                    <!-- صورة الملف الشخصي -->
                                     <div class="flex-shrink-0">
                                         <div
                                             class="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-indigo-100 flex items-center justify-center"
                                         >
                                             <span
                                                 class="text-indigo-800 font-semibold"
-                                                >{{
-                                                    post.user.name.charAt(0)
-                                                }}</span
                                             >
+                                                {{ post.user.name.charAt(0) }}
+                                            </span>
                                         </div>
                                     </div>
 
-                                    <!-- Content -->
-                                    <div class="flex-1 min-w-0">
+                                    <!-- المحتوى -->
+                                    <div class="flex-1 min-w-0 text-right">
                                         <div
-                                            class="flex flex-wrap items-center text-xs sm:text-sm"
+                                            class="flex flex-wrap items-center text-xs sm:text-sm justify-end"
                                         >
                                             <span
                                                 class="font-medium text-gray-900"
-                                                >{{ post.user.name }}</span
                                             >
+                                                {{ post.user.name }}
+                                            </span>
                                             <span class="mx-1 text-gray-500"
                                                 >&middot;</span
                                             >
-                                            <span class="text-gray-500">{{
-                                                formatTimeAgo(post.created_at)
-                                            }}</span>
+                                            <span class="text-gray-500">
+                                                {{
+                                                    formatTimeAgo(
+                                                        post.created_at
+                                                    )
+                                                }}
+                                            </span>
                                         </div>
 
                                         <h3
@@ -83,7 +87,7 @@
                                 </div>
                             </Link>
 
-                            <!-- Post Image with Modal Trigger - Moved outside of Link -->
+                            <!-- صورة المنشور -->
                             <div
                                 v-if="post.image"
                                 class="mt-2 rounded-lg overflow-hidden cursor-pointer"
@@ -102,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- Image Modal -->
+            <!-- نافذة عرض الصورة -->
             <div
                 v-if="showImageModal"
                 class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75"
@@ -130,14 +134,14 @@
                     </button>
                     <img
                         :src="currentImage"
-                        alt="Full size post image"
+                        alt="صورة المنشور"
                         class="max-h-[90vh] w-full object-contain"
                         @error="handleImageError"
                     />
                 </div>
             </div>
 
-            <!-- Floating Action Button (FAB) for Create Post -->
+            <!-- زر إنشاء منشور -->
             <Link
                 :href="route('posts.create')"
                 class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 z-10"

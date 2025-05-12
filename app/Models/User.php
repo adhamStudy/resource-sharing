@@ -60,4 +60,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function ownedReservations()
+{
+    return $this->hasMany(Reservation::class, 'owner_id');
+}
 }

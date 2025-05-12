@@ -1,14 +1,14 @@
 <template>
-    <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8" dir="rtl">
         <div class="max-w-3xl mx-auto">
-            <!-- Back button -->
+            <!-- زر الرجوع -->
             <button
                 @click="$inertia.visit(route('home'))"
                 class="flex items-center text-indigo-600 hover:text-indigo-800 mb-6 transition-colors"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 mr-1"
+                    class="h-5 w-5 ml-1"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -20,12 +20,12 @@
                         d="M10 19l-7-7m0 0l7-7m-7 7h18"
                     />
                 </svg>
-                Back to resources
+                الرجوع إلى الموارد
             </button>
 
-            <!-- Main card -->
+            <!-- البطاقة الرئيسية -->
             <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-                <!-- Image section -->
+                <!-- صورة المورد -->
                 <div class="relative h-64 sm:h-80 md:h-96 bg-gray-200">
                     <img
                         :src="'/' + resource.image"
@@ -52,24 +52,20 @@
                             />
                         </svg>
                     </div>
-                    <!-- Availability badge -->
+                    <!-- حالة التوفر -->
                     <span
-                        class="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold"
+                        class="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold"
                         :class="
                             resource.is_available
                                 ? 'bg-green-100 text-green-800'
                                 : 'bg-red-100 text-red-800'
                         "
                     >
-                        {{
-                            resource.is_available
-                                ? "Available"
-                                : "Not Available"
-                        }}
+                        {{ resource.is_available ? "متاح" : "غير متاح" }}
                     </span>
                 </div>
 
-                <!-- Content section -->
+                <!-- المحتوى -->
                 <div class="p-6 sm:p-8">
                     <div class="flex justify-between items-start">
                         <div>
@@ -79,35 +75,37 @@
                                 {{ resource.title }}
                             </h1>
                             <p class="text-gray-500 text-sm mt-1">
-                                Posted {{ formatDate(resource.created_at) }}
+                                تم النشر في
+                                {{ formatDate(resource.created_at) }}
                             </p>
                         </div>
-                        <!-- Price placeholder (you can add price field later) -->
                         <div
-                            class="bg-indigo-50 text-indigo-800 px-3 py-1 rounded-lg text-sm font-semibold"
+                            v-if="resource.user_id == user.id"
+                            class="bg-red-50 hover:bg-red-500 hover:text-white hover:text-sm text-red-800 px-3 py-1 rounded-lg text-sm font-semibold cursor-pointer"
+                            @click="deleteResource(resource.id)"
                         >
-                            Free
+                            حذف
                         </div>
                     </div>
 
-                    <!-- Description -->
+                    <!-- الوصف -->
                     <div class="mt-6">
                         <h2 class="text-lg font-semibold text-gray-800 mb-2">
-                            Description
+                            الوصف
                         </h2>
                         <p class="text-gray-600 whitespace-pre-line">
                             {{ resource.description }}
                         </p>
                     </div>
 
-                    <!-- Owner info (if you have user relationship) -->
+                    <!-- معلومات المالك -->
                     <div class="mt-8 border-t border-gray-200 pt-6">
                         <h2 class="text-lg font-semibold text-gray-800 mb-3">
-                            Owner Information
+                            معلومات المالك
                         </h2>
                         <div class="flex items-center">
                             <div
-                                class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center mr-3"
+                                class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center ml-3"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -126,18 +124,18 @@
                             </div>
                             <div>
                                 <p class="font-medium text-gray-900">
-                                    {{ user.name }}
+                                    {{ owner.name }}
                                 </p>
                                 <p class="text-sm text-gray-500">
-                                    Member since
-                                    {{ formatDate(user.created_at) }}
+                                    عضو منذ {{ formatDate(user.created_at) }}
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Action buttons -->
+                    <!-- الأزرار -->
                     <div
+                        v-if="user.id !== resource.user_id"
                         class="mt-8 border-t border-gray-200 pt-6 flex flex-col sm:flex-row gap-4"
                     >
                         <button
@@ -147,7 +145,7 @@
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 mr-2"
+                                class="h-5 w-5 ml-2"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -159,7 +157,7 @@
                                     d="M5 13l4 4L19 7"
                                 />
                             </svg>
-                            Reserve Now
+                            احجز الآن
                         </button>
                         <button
                             v-else
@@ -168,7 +166,7 @@
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 mr-2"
+                                class="h-5 w-5 ml-2"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -180,7 +178,7 @@
                                     d="M6 18L18 6M6 6l12 12"
                                 />
                             </svg>
-                            Currently Unavailable
+                            غير متاح حالياً
                         </button>
                     </div>
                 </div>
@@ -193,9 +191,10 @@
 import { defineProps } from "vue";
 import { router } from "@inertiajs/vue3";
 import { route } from "ziggy-js";
-
+import { Link } from "@inertiajs/vue3";
 const props = defineProps({
     resource: Object,
+    owner: Object,
     user: Object,
 });
 
@@ -205,22 +204,26 @@ const formatDate = (dateString) => {
 };
 
 const reserveResource = () => {
-    router.post(`/resources/${props.resource.id}/reserve`, {
-        onSuccess: () => {
-            // Handle successful reservation
-            alert("Resource reserved successfully!");
-        },
-        onError: (errors) => {
-            // Handle errors
-            alert(
-                "Failed to reserve resource: " +
-                    (errors.message || "Unknown error")
-            );
-        },
-    });
+    router.post(
+        route("resources.reserve", props.resource.id),
+
+        {
+            onSuccess: () => {
+                alert("Resource reserved successfully!");
+            },
+            onError: (errors) => {
+                alert(
+                    "Failed to reserve resource: " +
+                        (errors.message || "Unknown error")
+                );
+            },
+        }
+    );
+};
+
+const deleteResource = (id) => {
+    if (confirm("Are you sure you want to delete this resource?")) {
+        router.delete(route("resources.destroy", id));
+    }
 };
 </script>
-
-<style scoped>
-/* Custom styles if needed */
-</style>

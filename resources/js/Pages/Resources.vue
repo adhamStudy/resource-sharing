@@ -1,15 +1,13 @@
 <template>
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="max-w-7xl mx-auto p-6" dir="rtl">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">
-                Neighborhood Resources
-            </h1>
+            <h1 class="text-3xl font-bold text-gray-800">موارد الحي</h1>
 
             <Link
                 :href="route('create')"
                 class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             >
-                Create
+                إنشاء مورد
             </Link>
         </div>
 
@@ -22,13 +20,14 @@
                         <label
                             for="search"
                             class="block text-sm font-medium text-gray-700 mb-1"
-                            >Search</label
                         >
+                            البحث
+                        </label>
                         <input
                             id="search"
                             v-model="filters.search"
                             type="text"
-                            placeholder="Search by name..."
+                            placeholder="ابحث بالاسم..."
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         />
                     </div>
@@ -38,18 +37,17 @@
                         <label
                             for="availability"
                             class="block text-sm font-medium text-gray-700 mb-1"
-                            >Availability</label
                         >
+                            الحالة
+                        </label>
                         <select
                             id="availability"
                             v-model="filters.availability"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                            <option value="all">All Resources</option>
-                            <option value="available">Available Now</option>
-                            <option value="unavailable">
-                                Currently Reserved
-                            </option>
+                            <option value="all">جميع الموارد</option>
+                            <option value="available">متاح الآن</option>
+                            <option value="unavailable">محجوز حالياً</option>
                         </select>
                     </div>
 
@@ -58,15 +56,16 @@
                         <label
                             for="sort_by"
                             class="block text-sm font-medium text-gray-700 mb-1"
-                            >Sort By</label
                         >
+                            الترتيب حسب
+                        </label>
                         <select
                             id="sort_by"
                             v-model="filters.sort_by"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                            <option value="created_at">Date Added</option>
-                            <option value="title">Name</option>
+                            <option value="created_at">تاريخ الإضافة</option>
+                            <option value="title">الاسم</option>
                         </select>
                     </div>
 
@@ -75,43 +74,40 @@
                         <label
                             for="sort_direction"
                             class="block text-sm font-medium text-gray-700 mb-1"
-                            >Order</label
                         >
+                            الترتيب
+                        </label>
                         <select
                             id="sort_direction"
                             v-model="filters.sort_direction"
                             class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                            <option value="asc">Ascending</option>
-                            <option value="desc">Descending</option>
+                            <option value="asc">تصاعدي</option>
+                            <option value="desc">تنازلي</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="mt-4 flex justify-end space-x-3">
+                <div class="mt-4 flex justify-end space-x-3 space-x-reverse">
                     <button
                         type="button"
                         @click="resetFilters"
                         class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
                     >
-                        Reset
+                        إعادة تعيين
                     </button>
                     <button
                         type="submit"
                         class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                     >
-                        Apply Filters
+                        تطبيق الفلاتر
                     </button>
                 </div>
             </form>
         </div>
 
         <!-- Resources Count -->
-        <div class="mb-4 text-gray-600">
-            Showing {{ resources.length }} resource{{
-                resources.length !== 1 ? "s" : ""
-            }}
-        </div>
+        <div class="mb-4 text-gray-600">عرض {{ resources.length }} مورد</div>
 
         <!-- Resources Grid -->
         <div
@@ -141,16 +137,14 @@
 
                         <!-- Availability Badge -->
                         <div
-                            class="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full"
+                            class="absolute top-2 left-2 px-2 py-1 text-xs font-medium rounded-full"
                             :class="
                                 resource.is_available
                                     ? 'bg-green-100 text-green-800'
                                     : 'bg-red-100 text-red-800'
                             "
                         >
-                            {{
-                                resource.is_available ? "Available" : "Reserved"
-                            }}
+                            {{ resource.is_available ? "متاح" : "محجوز" }}
                         </div>
                     </div>
 
@@ -173,7 +167,7 @@
                             <div class="flex items-center text-gray-600">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 mr-1"
+                                    class="h-4 w-4 ml-1"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -185,12 +179,12 @@
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                                     />
                                 </svg>
-                                Reserved by: {{ resource.reserved_by.name }}
+                                حجز بواسطة: {{ resource.reserved_by.name }}
                             </div>
                             <div class="flex items-center text-gray-600 mt-1">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 mr-1"
+                                    class="h-4 w-4 ml-1"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -202,13 +196,8 @@
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                                     />
                                 </svg>
-                                Reserved
-                                {{ resource.days_since_reservation }} day{{
-                                    resource.days_since_reservation !== 1
-                                        ? "s"
-                                        : ""
-                                }}
-                                ago
+                                تم الحجز منذ
+                                {{ resource.days_since_reservation }} يوم
                             </div>
                         </div>
                     </div>
@@ -233,16 +222,14 @@
                 />
             </svg>
             <h3 class="mt-4 text-lg font-medium text-gray-900">
-                No resources found
+                لا توجد موارد
             </h3>
-            <p class="mt-1 text-gray-500">
-                Try adjusting your search or filter criteria.
-            </p>
+            <p class="mt-1 text-gray-500">جرب تعديل معايير البحث أو الفلاتر.</p>
             <button
                 @click="resetFilters"
                 class="mt-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
             >
-                Clear Filters
+                مسح الفلاتر
             </button>
         </div>
     </div>

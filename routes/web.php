@@ -14,8 +14,14 @@ Route::get('/create',[HomeController::class,'create'])->name('create')->middlewa
 Route::post('/store',[HomeController::class,'store'])->name('store');
 
 Route::get('/show/{resource}',[HomeController::class,'show'])->name('show');
-Route::post('/resources/{resource}/reserve', [HomeController::class, 'reserve'])
+Route::post('/resources/{resource}/reserve', [ReservationController::class, 'reserve'])
     ->name('resources.reserve')
+    ->middleware(['auth']);
+    Route::post('/resources/{resource}/release', [ReservationController::class, 'release'])->name('resources.release')->middleware(['auth']);;
+
+
+    Route::delete('/resources/{resource}', [HomeController::class, 'destroy'])
+    ->name('resources.destroy')
     ->middleware(['auth']);
 
 Route::get('/login',[AuthController::class,'create'])->name('login');

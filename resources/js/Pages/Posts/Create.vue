@@ -2,16 +2,16 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-gray-200 text-right">
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-2xl font-semibold text-gray-900">
-                            Create Post
+                            شاركنا في المنتدى منشور - رأي - شكوى
                         </h1>
                         <Link
                             :href="route('posts.index')"
                             class="text-indigo-600 hover:text-indigo-900"
                         >
-                            Back to Posts
+                            الرجوع إلى المنتدى
                         </Link>
                     </div>
 
@@ -20,8 +20,9 @@
                             <label
                                 for="title"
                                 class="block text-sm font-medium text-gray-700"
-                                >Title</label
                             >
+                                العنوان
+                            </label>
                             <input
                                 id="title"
                                 v-model="form.title"
@@ -41,8 +42,9 @@
                             <label
                                 for="content"
                                 class="block text-sm font-medium text-gray-700"
-                                >Content</label
                             >
+                                المحتوى
+                            </label>
                             <textarea
                                 id="content"
                                 v-model="form.content"
@@ -64,8 +66,9 @@
                             <label
                                 for="image"
                                 class="block text-sm font-medium text-gray-700"
-                                >Image (Optional)</label
                             >
+                                الصورة (اختياري)
+                            </label>
                             <input
                                 id="image"
                                 type="file"
@@ -89,8 +92,8 @@
                             >
                                 {{
                                     form.processing
-                                        ? "Creating..."
-                                        : "Create Post"
+                                        ? "جاري الإنشاء..."
+                                        : "إنشاء المنشور"
                                 }}
                             </button>
                         </div>
@@ -119,3 +122,10 @@ const submit = () => {
     });
 };
 </script>
+
+<style scoped>
+/* يمكنك تعديل الاتجاه من هنا أيضًا */
+[dir="rtl"] {
+    direction: rtl;
+}
+</style>

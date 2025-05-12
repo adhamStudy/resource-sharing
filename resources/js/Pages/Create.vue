@@ -1,8 +1,12 @@
 <template>
     <div class="create-resource-page">
-        <h1 class="text-2xl font-bold mb-4">Create Resource</h1>
-        <form @submit.prevent="create" enctype="multipart/form-data">
-            <label for="">Title</label>
+        <h1 class="text-2xl font-bold mb-4 text-right">إنشاء مورد</h1>
+        <form
+            @submit.prevent="create"
+            enctype="multipart/form-data"
+            class="text-right"
+        >
+            <label for="">العنوان</label>
             <input
                 v-model="form.title"
                 type="text"
@@ -12,7 +16,7 @@
                 {{ form.errors.title }}
             </div>
 
-            <label for="">Description</label>
+            <label for="">الوصف</label>
             <input
                 v-model="form.description"
                 type="text"
@@ -25,7 +29,7 @@
                 {{ form.errors.description }}
             </div>
 
-            <label for="">Image</label>
+            <label for="">الصورة</label>
             <input
                 type="file"
                 @input="form.image = $event.target.files[0]"
@@ -39,7 +43,7 @@
                 type="submit"
                 class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
             >
-                Create
+                إنشاء
             </button>
         </form>
     </div>
@@ -56,7 +60,7 @@ const form = useForm({
 
 const create = () => {
     form.post("/store", {
-        forceFormData: true, // this is required for file uploads
+        forceFormData: true, // هذا مطلوب لرفع الملفات
     });
 };
 </script>
@@ -66,5 +70,6 @@ const create = () => {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    direction: rtl;
 }
 </style>
