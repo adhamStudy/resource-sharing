@@ -2,9 +2,11 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-6">
-                <h1 class="text-2xl font-semibold text-gray-900">Profile</h1>
+                <h1 class="text-2xl font-semibold text-gray-900">
+                    الملف الشخصي
+                </h1>
                 <p class="mt-1 text-sm text-gray-600">
-                    Update your account information and password.
+                    قم بتحديث معلومات حسابك وكلمة المرور.
                 </p>
             </div>
 
@@ -18,8 +20,9 @@
                             <label
                                 for="name"
                                 class="block text-sm font-medium text-gray-700"
-                                >Name</label
                             >
+                                الاسم
+                            </label>
                             <input
                                 id="name"
                                 v-model="form.name"
@@ -40,8 +43,9 @@
                             <label
                                 for="email"
                                 class="block text-sm font-medium text-gray-700"
-                                >Email</label
                             >
+                                البريد الإلكتروني
+                            </label>
                             <input
                                 id="email"
                                 v-model="form.email"
@@ -62,8 +66,9 @@
                             <label
                                 for="phone"
                                 class="block text-sm font-medium text-gray-700"
-                                >Phone (optional)</label
                             >
+                                رقم الهاتف (اختياري)
+                            </label>
                             <input
                                 id="phone"
                                 v-model="form.phone"
@@ -82,10 +87,11 @@
                         <!-- Divider -->
                         <div class="border-t border-gray-200 pt-4">
                             <h3 class="text-lg font-medium text-gray-900">
-                                Update Password
+                                تحديث كلمة المرور
                             </h3>
                             <p class="mt-1 text-sm text-gray-600">
-                                Leave blank to keep your current password.
+                                اترك الحقل فارغًا إذا كنت لا ترغب في تغيير كلمة
+                                المرور.
                             </p>
                         </div>
 
@@ -94,8 +100,9 @@
                             <label
                                 for="current_password"
                                 class="block text-sm font-medium text-gray-700"
-                                >Current Password</label
                             >
+                                كلمة المرور الحالية
+                            </label>
                             <input
                                 id="current_password"
                                 v-model="form.current_password"
@@ -119,8 +126,9 @@
                             <label
                                 for="password"
                                 class="block text-sm font-medium text-gray-700"
-                                >New Password</label
                             >
+                                كلمة المرور الجديدة
+                            </label>
                             <input
                                 id="password"
                                 v-model="form.password"
@@ -143,8 +151,9 @@
                             <label
                                 for="password_confirmation"
                                 class="block text-sm font-medium text-gray-700"
-                                >Confirm Password</label
                             >
+                                تأكيد كلمة المرور
+                            </label>
                             <input
                                 id="password_confirmation"
                                 v-model="form.password_confirmation"
@@ -162,8 +171,8 @@
                             >
                                 {{
                                     form.processing
-                                        ? "Saving..."
-                                        : "Save Changes"
+                                        ? "جاري الحفظ..."
+                                        : "حفظ التغييرات"
                                 }}
                             </button>
                         </div>

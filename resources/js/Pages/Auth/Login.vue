@@ -62,6 +62,14 @@
                         </Link>
                     </span>
                 </div>
+                <div class="mt-4 text-center">
+                    <button
+                        @click="loginWithGithub"
+                        class="btn-secondary w-full py-2 px-4 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-md"
+                    >
+                        تسجيل الدخول باستخدام GitHub
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -69,11 +77,12 @@
 
 <script setup>
 import { useForm, Link } from "@inertiajs/vue3";
-
 const form = useForm({
     email: "",
     password: "",
 });
-
+function loginWithGithub() {
+    window.location.href = route("socialite.login"); // This will perform a full redirect
+}
 const login = () => form.post("/login");
 </script>

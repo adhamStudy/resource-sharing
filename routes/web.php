@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SocialiteController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/resource',[HomeController::class,'resource'])->name('resource');
@@ -52,3 +53,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+
+Route::prefix('/github')->name('socialite.')->controller(SocialiteController::class)->group(function(){
+
+    Route::get('/login','login')->name('login');
+    Route::get('/redirect','redirect')->name('redirect');
+
+});

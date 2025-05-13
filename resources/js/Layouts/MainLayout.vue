@@ -197,6 +197,12 @@
         >
             {{ $page.props.flash.success }}
         </div>
+        <div
+            v-if="$page.props.flash.error"
+            class="bg-red-100 animate-bounce text-black text-sm border text-center border-red-200 rounded-lg p-2 m-5 dark:bg-red-900 dark:text-white dark:border-red-700"
+        >
+            {{ $page.props.flash.error }}
+        </div>
 
         <!-- Page Content -->
         <main class="max-w-7xl mx-auto px-4 py-8">
