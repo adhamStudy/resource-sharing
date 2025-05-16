@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('reservations', function (Blueprint $table) {
             $table->foreignId('owner_id')
-                  ->constrained('users')
+                  ->constrained('users')->notNullable()
                   ->onDelete('cascade')
                   ->after('id'); // or place it after another appropriate column
         });

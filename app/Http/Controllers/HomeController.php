@@ -15,7 +15,9 @@ class HomeController extends Controller
     return inertia('Home');
    }
 
-
+   public function game(){
+    return inertia('Game');
+   }
    public function resource(Request $request)
    {
        $query = Resource::query()->with('reservations.user');

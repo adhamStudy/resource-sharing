@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SocialiteController;
 
+Route::get('/games',[HomeController::class,'game'])->name('game');
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/resource',[HomeController::class,'resource'])->name('resource');
 Route::get('/create',[HomeController::class,'create'])->name('create')->middleware(['auth']);
