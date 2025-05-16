@@ -4,30 +4,37 @@ namespace Database\Seeders;
 
 use App\Models\Resource;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 🔐 Disable foreign key checks
+        Schema::disableForeignKeyConstraints();
 
-        // delete all from Resource
-        Resource::truncate();
-        User::truncate();
+        // ✅ Clean tables using delete (respects foreign keys)
+        DB::table('reservations')->delete();
+        DB::table('resources')->delete();
+        DB::table('posts')->delete();
+        DB::table('users')->delete();
+
+        // ✅ Re-enable foreign key checks
+        Schema::enableForeignKeyConstraints();
+
+        // 🌱 Seed test users
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
         User::factory()->create([
             'name' => 'adham',
             'email' => 'adhmalslahy@gmail.com',
-            'password'=> Hash::make('adhm1234'),
+            'password' => Hash::make('adhm1234'),
         ]);
     }
 }
