@@ -54,7 +54,7 @@
                     ليس لديك حساب؟
                     <span>
                         <Link
-                            href="/user-account/create"
+                            :href="route('user-account.create')"
                             as="button"
                             class="text-blue-600 dark:text-blue-400 hover:text-blue-800 font-medium mr-1"
                         >
@@ -84,5 +84,5 @@ const form = useForm({
 function loginWithGithub() {
     window.location.href = route("socialite.login"); // This will perform a full redirect
 }
-const login = () => form.post("/login");
+const login = () => form.post(route("login.store"));
 </script>
